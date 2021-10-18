@@ -1,7 +1,8 @@
+from typing import Text
 from PyQt5.QtWidgets import QMainWindow, QApplication
 from PyQt5 import uic
 from math import sqrt
-
+import math
 class MiVentana(QMainWindow):
     def __init__(self):
         super().__init__()
@@ -24,6 +25,7 @@ class MiVentana(QMainWindow):
         self.boton0.clicked.connect(self.click_0)
         self.Borrartodo.clicked.connect(self.DeletAll)
         self.Borrar.clicked.connect(self.Delet)
+        self.Coma.clicked.connect(self.coma)
         #Listeners de Eventos de los botones de las operaciones
         self.suma.clicked.connect(self.sumar)
         self.igual.clicked.connect(self.resultado)
@@ -31,77 +33,52 @@ class MiVentana(QMainWindow):
         self.Potencia.clicked.connect(self.potenciar)
         self.Dividir.clicked.connect(self.dividir)
         self.Raiz.clicked.connect(self.raiz)
+        self.multiplica.clicked.connect(self.multiplicar)
 
-    def sumar(self):
-        #Si ya tiene asignado un operador, agregamos el otro con el mismo botón
-        if(self.operador1 == 0):
-            self.operador1 = int(self.Calculo.text())
-            self.Calculo.setText("")
-            self.operacion = "suma"
-        else:
-            self.operador2 = int(self.Calculo.text())
-            self.Calculo.setText(str(self.operador1+self.operador2))
-            
-    def restar(self):
-        
-        if(self.operador1 == 0):
-            self.operador1 = int(self.Calculo.text())
-            self.Calculo.setText("")
-            self.operacion = "resta"
-        else:
-            self.operador2 = int(self.Calculo.text())
-            self.Calculo.setText(str(self.operador1-self.operador2))
-    def raiz(self):
-        if(self.operador1 == 0):
-            self.operador1 = int(self.Calculo.text())
-            self.Calculo.setText("")
-            self.operacion = "raiz"
-        else:
-            self.Calculo.setText(str(sqrt(self.operador1)))
-    def dividir(self):
-        if(self.operador1 == 0):
-            self.operador1 = int(self.Calculo.text())
-            if (self.operador1 == 0):
-                self.Calculo.setText("Error")
-            else:
-                self.operador1 = int(self.Calculo.text())
-                self.Calculo.setText("")
-                self.operacion = "divicion"
-        else:
-            self.operador2 = int(self.Calculo.text())
-            self.Calculo.setText(str(self.operador1/self.operador2))
-
-    def potenciar(self):
-
-        if(self.operador1 == 0):
-            self.operador1 = int(self.Calculo.text())
-            self.Calculo.setText("")
-            self.operacion = "Potenciar"
-        else:
-            self.operador2 = int(self.Calculo.text())
-            self.Calculo.setText(str(pow(self.operador1,self.operador2)))
 
     def resultado(self):
-        #Se procede a la operación dependiendo del tipo y siempre y cuando este determinado el primer operador.
-        if(self.operacion == "suma"):
-            self.operador2 = int(self.Calculo.text())
-            self.Calculo.setText(str(self.operador1+self.operador2))
-        elif(self.operacion == "resta"):
-            self.operador2 = int(self.Calculo.text())
-            self.Calculo.setText(str(self.operador1-self.operador2))
-        elif(self.operacion == "divicion"):
-            self.operador2 = int(self.Calculo.text())
-            if(self.operador2 == 0):
-                self.Calculo.setText("Error")
-            else:
-                self.Calculo.setText(str(self.operador1/self.operador2))
-        elif(self.operacion == "Potenciar"):
-            self.operador2 = int(self.Calculo.text())
-            self.Calculo.setText(str(pow(self.operador1,self.operador2)))
-        elif(self.operacion == 'raiz'):
-            self.Calculo.setText(str(sqrt(self.operador1)))
+            operador1 = self.Calculo.text()    
+            try:
+                    ans = eval(operador1)
+                    self.Calculo.setText(str(ans))
+            except:
+                    self.Calculo.setText("Error")
 
     #Eventos de asignación de valores al label
+    def sumar(self):
+        text = self.Calculo.text()
+        self.Calculo.setText(text + " + ")
+    
+    def restar(self):
+        text = self.Calculo.text()
+        self.Calculo.setText(text + " - ")
+
+    def dividir(self):
+        text = self.Calculo.text()
+        self.Calculo.setText(text + " / ")
+
+    def multiplicar(self):
+        text = self.Calculo.text()
+        self.Calculo.setText(text + " * ")
+
+    def potenciar(self):
+        global num
+
+        num = float(self.Calculo.text())
+        num = num**2
+        self.Calculo.setText(str(num))
+    
+    def coma(self):
+        text = self.Calculo.text()
+        self.Calculo.setText(text + ".")
+            
+    def raiz(self):
+        global num
+        num = float(self.Calculo.text())
+        num = sqrt(num)
+        self.Calculo.setText(str(num))
+
+
     def click_1(self):
         self.Calculo.setText(self.Calculo.text() + "1")
 
