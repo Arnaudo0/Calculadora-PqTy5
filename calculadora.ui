@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>320</width>
-    <height>406</height>
+    <width>367</width>
+    <height>357</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -194,7 +194,7 @@
     <property name="geometry">
      <rect>
       <x>200</x>
-      <y>160</y>
+      <y>110</y>
       <width>51</width>
       <height>41</height>
      </rect>
@@ -207,7 +207,7 @@
      <string>+</string>
     </property>
    </widget>
-   <widget class="QPushButton" name="producto">
+   <widget class="QPushButton" name="multiplica">
     <property name="geometry">
      <rect>
       <x>140</x>
@@ -228,7 +228,7 @@
     <property name="geometry">
      <rect>
       <x>200</x>
-      <y>110</y>
+      <y>160</y>
       <width>51</width>
       <height>41</height>
      </rect>
