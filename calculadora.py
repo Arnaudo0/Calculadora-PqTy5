@@ -3,6 +3,8 @@ from PyQt5.QtWidgets import QMainWindow, QApplication
 from PyQt5 import uic
 from math import sqrt
 import math
+import locale
+locale.setlocale(locale.LC_ALL, 'es_AR')
 class MiVentana(QMainWindow):
     def __init__(self):
         super().__init__()
@@ -10,6 +12,7 @@ class MiVentana(QMainWindow):
         #Seteamos los operadores
         self.operador1 = 0
         self.operador2 = 0
+        self.Rapt = 0
         #Seteamos el tipo de operación a realizar
         self.operacion = ""
         #Listeners de Eventos de los botones de los números
@@ -34,39 +37,48 @@ class MiVentana(QMainWindow):
         self.Dividir.clicked.connect(self.dividir)
         self.Raiz.clicked.connect(self.raiz)
         self.multiplica.clicked.connect(self.multiplicar)
-
+        self.backup.returnPressed.connect(self.teclado)
 
     def resultado(self):
-            operador1 = self.Calculo.text()    
-            try:
-                    ans = eval(operador1)
-                    self.Calculo.setText(str(ans))
-            except:
-                    self.Calculo.setText("Error")
+            operador1 = self.Calculo.text()
+            if (self.Rapt == 0):
+                try:
+                        ans = eval(operador1)
+                        self.Calculo.setText(str(ans))
+                except:
+                        self.Calculo.setText("Error")
+            elif (self.Rapt == 1) :
+                global num
+                num = pow(num,float(self.Calculo.text()))
+                self.Calculo.setText(str(num))
+                    
 
     #Eventos de asignación de valores al label
     def sumar(self):
+        self.Rapt = 0
         text = self.Calculo.text()
-        self.Calculo.setText(text + " + ")
+        self.Calculo.setText(text + "+")
     
     def restar(self):
+        self.Rapt = 0
         text = self.Calculo.text()
-        self.Calculo.setText(text + " - ")
+        self.Calculo.setText(text + "-")
 
     def dividir(self):
+        self.Rapt = 0
         text = self.Calculo.text()
-        self.Calculo.setText(text + " / ")
+        self.Calculo.setText(text + "/")
 
     def multiplicar(self):
+        self.Rapt = 0
         text = self.Calculo.text()
-        self.Calculo.setText(text + " * ")
+        self.Calculo.setText(text + "*")
 
     def potenciar(self):
+        self.Rapt = 1
         global num
-
         num = float(self.Calculo.text())
-        num = num**2
-        self.Calculo.setText(str(num))
+        self.Calculo.setText("")
     
     def coma(self):
         text = self.Calculo.text()
@@ -78,6 +90,14 @@ class MiVentana(QMainWindow):
         num = sqrt(num)
         self.Calculo.setText(str(num))
 
+    def teclado(self):
+        operador1 = self.backup.text()
+        try:
+            ans = eval(operador1)
+            ans = format(ans,',d').replace(",",".")
+            self.Calculo.setText(str(ans))
+        except:
+            self.Calculo.setText("Error")
 
     def click_1(self):
         self.Calculo.setText(self.Calculo.text() + "1")

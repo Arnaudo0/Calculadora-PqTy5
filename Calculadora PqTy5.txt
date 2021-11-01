@@ -1,3 +1,5 @@
-https://github.com/Arnaudo0/Calculadora-PqTy5.git
+https://github.com/Arnaudo0/Calculadora-PqTy5/tree/tercera
 Arnaudo Facundo Gabriel
 Zamora Federico Nicolas
+Lescano Alejandro
+parte 3
